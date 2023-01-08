@@ -5,12 +5,12 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "deploy": "npm install -f && npm run build && chmod +x bin/deploy.sh && bin/deploy.sh",
-    "test": "ng test --watch=false",
+    "start": " set NODE_OPTIONS=--openssl-legacy-provider && ng serve ",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build",
+    "deploy": "set NODE_OPTIONS=--openssl-legacy-provider && npm install -f && npm run build && chmod +x bin/deploy.sh && bin/deploy.sh",
+    "test": "set NODE_OPTIONS=--openssl-legacy-provider && ng test --watch=false",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "set NODE_OPTIONS=--openssl-legacy-provider && ng e2e"
   },
   "private": true,
   "dependencies": {
