@@ -67,6 +67,7 @@ jobs:
             npm run frontend:install
             npm run api:install
             npm run frontend:build
+            eb init
             npm run api:build
             npm run deploy
             echo "DEPLOYED SUCCESSFULLY :)"
