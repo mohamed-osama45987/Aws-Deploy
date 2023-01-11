@@ -10,7 +10,9 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.1
 ```
 
-Then we need to set our jobs ( commands we want to executed )
+Then we need to set our jobs ( commands we want to executed ) :- 
+
+The steps run as first we want to run the first 2 steps to install the dependancies on the circle ci server and then we instrunct the server to lint and build our project using npm and then we deploy our app from circleci to our aws cloud 
 
 ```yml
 jobs:
@@ -81,15 +83,11 @@ jobs:
           #  Install, build, deploy in both apps
           command: |
             echo "# TODO: Install, build, deploy in both apps"
-            npm run frontend:install
-            npm run api:install
-            npm run frontend:build
-            npm run api:build
             npm run deploy
             echo "DEPLOYED SUCCESSFULLY :)"
 ```
 
-Lastly we want to set our workflow to orchestrate the jobs
+Lastly we want to set our workflow to orchestrate the jobs which tells circle ci what to run first
 
 ```yml
 workflows:
