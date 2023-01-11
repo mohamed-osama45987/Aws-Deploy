@@ -1,108 +1,51 @@
-## CI/CD pipline Configuration File ( .circleci/config.yml )
 
-Setting our orbs to install necessary tools to run our app
 
-```yml
-version: 2.1
-orbs:
-  node: circleci/node@5.0.2
-  eb: circleci/aws-elastic-beanstalk@2.0.1
-  aws-cli: circleci/aws-cli@3.1.1
-```
+## Project dependencies
 
-Then we need to set our jobs ( commands we want to executed ) :- 
+1. Angular for the Frontend. 
+2. Nodejs for the Backend.
+3. PostgressSQL Database.
 
-The steps run as first we want to run the first 2 steps to install the dependancies on the circle ci server and then we instrunct the server to lint and build our project using npm and then we deploy our app from circleci to our aws cloud 
+&nbsp;
 
-```yml
-jobs:
-  build:
-    docker:
-      # the base image can run most needed actions with orbs
-      - image: "cimg/node:14.15"
 
-    steps:
-      # install node and checkout code
-      - node/install:
-          node-version: "14.15"
-      - checkout
 
-      # Use root level package.json to install dependencies in the frontend app
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
-            npm run frontend:install
+## Project Infrastructure
 
-      #  Install dependencies in the the backend API
-      - run:
-          name: Install API Dependencies
-          command: |
-            echo "TODO: Install dependencies in the the backend API "
-            npm run api:install
+This is a fullstack project hosted on Aws cloud and has a ci/cd pipline 
 
-      #  Lint the frontend
-      - run:
-          name: Front-End Lint
-          command: |
-            echo "TODO: Lint the frontend"
-            npm run frontend:lint
+Our project uses the following AWS services to be hosted:-
 
-      # Build the frontend app
-      - run:
-          name: Front-End Build
-          command: |
-            echo "TODO: Build the frontend app"
-            npm run frontend:build
+1. Simple Storage Service (S3) bucket for the front-end
+1. Elasticbeans (EB) service for hosting our node app back-end
+1. Relational Database service (RDS) service for postger database
 
-      #  Build the backend API
-      - run:
-          name: API Build
-          command: |
-            echo "TODO: Build the backend API"
-            npm run api:build
 
-  # deploy step will run only after manual approval
-  deploy:
-    docker:
-      - image: "cimg/base:stable"
-      # more setup needed for aws, node, elastic beanstalk
+&nbsp;
 
-    steps:
-      - node/install:
-          node-version: "14.15"
-      - eb/setup
-      - aws-cli/setup
-      - checkout
-      - run:
-          name: Deploy App
+The complete diagram to the project ourline is found in ( DOCS\Diagrams\Diagram as png.png ) file. this diagram help to give a greate understanding of the full infrastructure for the project 
 
-          #  Install, build, deploy in both apps
-          command: |
-            echo "# TODO: Install, build, deploy in both apps"
-            npm run deploy
-            echo "DEPLOYED SUCCESSFULLY :)"
-```
 
-Lastly we want to set our workflow to orchestrate the jobs which tells circle ci what to run first
+&nbsp;
 
-```yml
-workflows:
-  udagram:
-    jobs:
-      - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - master
-          type: approval
-          requires:
-            - build
-      - deploy:
-          requires:
-            - hold
-```
+
+
+
+
+
+## CI/CD pipeline process
+
+The steps of the pipeline contains the following :-
+
+-  Instructions to setup the orbs ( Node Enviroment and AwsCli ) inside the circleci servers
+
+- Instructions to install project dependancies on the circleci servers
+
+- Instructions to test and build the project on the circleci servers
+
+- Instructions to deploy our app from circleci servers to aws cloud
+
+&nbsp;
+
+Please refere to this file for the detailed instructions ( .circleci/config.yml  )
+
