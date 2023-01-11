@@ -64,9 +64,8 @@ jobs:
           name: Passing enviroment variables to EB 
           # Install, build, deploy in both apps
           command: |
-            echo "setting enviroment variables for EB"
-            eb setenv AWS_PROFILE=$AWS_PROFILE AWS_REGION=$AWS_DEFAULT_REGION
-            
+            echo "setting enviroment variables for EB ${AWS_PROFILE}"
+            eb setenv AWS_PROFILE=$AWS_PROFILE 
       - run:
           name: Deploy App
           # Install, build, deploy in both apps
